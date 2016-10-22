@@ -113,3 +113,9 @@ Licensed under MIT
   color: #656565;
   font-size: 12px;
 }
+/*#list2 { width:320px; }*/
+.groups ol { font-style:italic; font-family:Georgia, Times, serif; font-size:24px; color:orange; }
+.groups ol li { }
+.groups ol li p { padding:8px; font-style:normal; font-family:Arial; font-size:13px; border-left: 1px solid #999;
+    color: #222; }
+.groups ol li p em { display:block; }
