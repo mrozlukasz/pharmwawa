@@ -19,10 +19,11 @@ app
 var Schema = new mongoose.Schema({
     id       : String,
     title    : String,
-    completed: Boolean
+    lat: String,
+    lon: String
 }),
 
-    Todo = mongoose.model('Todo', Schema);
+    Item = mongoose.model('Item', Schema);
 
 
 // create our router
@@ -39,14 +40,14 @@ router
     .get('/', function (req, res) {
         res.json(200, 'it\'s alive');
     })
-    .get('/todos', function (req, res) {
+    .get('/items', function (req, res) {
         // http://mongoosejs.com/docs/api.html#query_Query-find
-        Todo.find( function ( err, todos ){
+        Item.find( function (err, todos ){
             res.json(200, todos);
         });
     })
-    .post('/api/todos', function (req, res) {
-        var todo = new Todo( req.body );
+    .post('/api/items', function (req, res) {
+        var todo = new Item( req.body );
         todo.id = todo._id;
         // http://mongoosejs.com/docs/api.html#model_Model-save
         todo.save(function (err) {
@@ -54,23 +55,23 @@ router
         });
     })
 
-    .delete('/todos', function (req, res) {
+    .delete('/items', function (req, res) {
         // http://mongoosejs.com/docs/api.html#query_Query-remove
-        Todo.remove({ completed: true }, function ( err ) {
+        Item.remove({ completed: true }, function (err ) {
             res.json(200, {msg: 'OK'});
         });
     })
 
-    .get('/todos/:id', function (req, res) {
+    .get('/items/:id', function (req, res) {
         // http://mongoosejs.com/docs/api.html#model_Model.findById
-        Todo.findById( req.params.id, function ( err, todo ) {
+        Item.findById( req.params.id, function (err, todo ) {
             res.json(200, todo);
         });
     })
 
-    .put('/todos/:id', function (req, res) {
+    .put('/items/:id', function (req, res) {
         // http://mongoosejs.com/docs/api.html#model_Model.findById
-        Todo.findById( req.params.id, function ( err, todo ) {
+        Item.findById( req.params.id, function (err, todo ) {
             todo.title = req.body.title;
             todo.completed = req.body.completed;
             // http://mongoosejs.com/docs/api.html#model_Model-save
@@ -80,9 +81,9 @@ router
         });
     })
 
-    .delete('/todos/:id', function (req, res) {
+    .delete('/items/:id', function (req, res) {
         // http://mongoosejs.com/docs/api.html#model_Model.findById
-        Todo.findById( req.params.id, function ( err, todo ) {
+        Item.findById( req.params.id, function (err, todo ) {
             // http://mongoosejs.com/docs/api.html#model_Model.remove
             todo.remove( function ( err, todo ){
                 res.json(200, {msg: 'OK'});
