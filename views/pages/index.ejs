@@ -5,6 +5,20 @@
 </head>
 
 <body>
+<div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+  <!-- Your send button code -->
+  <div class="fb-send" 
+    data-href="https://pharmwawa.herokuapp.com/"
+    data-layout="button_count">
+  </div>
 
   <% include ../partials/nav.ejs %>
 
@@ -13,10 +27,10 @@
     <a href="/" class="lang-logo">
       <img src="/lang-logo.png">
     </a>
-    <h1>Getting Started with Node on Heroku</h1>
-    <p>This is a sample Node application deployed to Heroku. It's a reasonably simple app - but a good foundation for understanding how to get the most out of the Heroku platform.</p>
-    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-nodejs"><span class="glyphicon glyphicon-flash"></span> Getting Started with Node</a>
-    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/node-js-getting-started"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>
+    <h1>PharmWawa</h1>
+    <p>Rozwiąż swój problem dostępności leków.</p>
+    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-nodejs"><span class="glyphicon glyphicon-flash"></span> Zacznij używać PharmWawa</a>
+    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/mrozlukasz/pharmwawa"><span class="glyphicon glyphicon-download"></span> Nasz GitHub</a>
   </div>
 </div>
 <div class="container">
