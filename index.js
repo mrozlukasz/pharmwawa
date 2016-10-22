@@ -46,7 +46,7 @@ router
             res.json(200, todos);
         });
     })
-    .post('/api/items', function (req, res) {
+    .post('/items', function (req, res) {
         var todo = new Item( req.body );
         todo.id = todo._id;
         // http://mongoosejs.com/docs/api.html#model_Model-save
