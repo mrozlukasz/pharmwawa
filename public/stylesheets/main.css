@@ -24,6 +24,9 @@
     border: 2px solid white; }
     .jumbotron .lang-logo img {
       max-width: 100%; }
-.fb-send {
-  height:46px;
+.btn-link {
+  color: #eee !important;
+}
+.btn-link:hover {
+  color: #fff !important;
 }
