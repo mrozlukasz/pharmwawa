@@ -43,7 +43,7 @@ router
     .get('/items', function (req, res) {
         // http://mongoosejs.com/docs/api.html#query_Query-find
         Item.find( function (err, items ){
-            res.json(200, items);
+            res.json(200, {items: items});
         });
     })
     .post('/items', function (req, res) {
@@ -51,7 +51,7 @@ router
         console.log(req.body);
         // http://mongoosejs.com/docs/api.html#model_Model-save
         item.save(function (err) {
-            res.json(200, item);
+            res.json(200, {item: item});
         });
     })
 
@@ -65,7 +65,7 @@ router
     .get('/items/:id', function (req, res) {
         // http://mongoosejs.com/docs/api.html#model_Model.findById
         Item.findById( req.params.id, function (err, item ) {
-            res.json(200, item);
+            res.json(200, {item: item});
         });
     })
 
@@ -79,7 +79,7 @@ router
             item.lon = req.body.lon;
             // http://mongoosejs.com/docs/api.html#model_Model-save
             item.save( function ( err, item ){
-                res.json(200, item);
+                res.json(200, {item: item});
             });
         });
     })

@@ -31,3 +31,9 @@
 .btn-link:hover {
   color: #fff !important;
 }
+.fa.fa-facebook-official {
+  color: #3b5998;
+  padding: 0 1px;
+  border-radius: 2px;
+  background-color: white;
+}
