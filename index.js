@@ -1,5 +1,29 @@
-var express = require('express');
+var express = require('express'),
+    mongoose = require('mongoose'),
+    morgan     = require('morgan'),
+    bodyParser = require('body-parser');
+
+mongoose.connect(process.env.MONGODB_URI, function (error) {
+    if (error) console.error(error);
+    else console.log('mongo connected');
+});
+
 var app = express();
+
+app
+    .use(morgan('dev')) // log requests to the console
+    .use(bodyParser.json()) // support json encoded bodies
+    .use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+// Mongoose Schema definition
+var Schema = new mongoose.Schema({
+    id       : String,
+    title    : String,
+    completed: Boolean
+}),
+
+    Todo = mongoose.model('Todo', Schema);
+
 
 // create our router
 var router = express.Router();
@@ -11,44 +35,60 @@ router.use(function(req, res, next) {
     next();
 });
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });
-});
-
-// on routes that end in /bears
-// ----------------------------------------------------
-router.route('/queries')
-
-// create a bear (accessed at POST http://localhost:8080/queries)
-    .post(function(req, res) {
-        res.json({ message: 'Query created!' });
+router
+    .get('/', function (req, res) {
+        res.json(200, 'it\'s alive');
+    })
+    .get('/todos', function (req, res) {
+        // http://mongoosejs.com/docs/api.html#query_Query-find
+        Todo.find( function ( err, todos ){
+            res.json(200, todos);
+        });
+    })
+    .post('/api/todos', function (req, res) {
+        var todo = new Todo( req.body );
+        todo.id = todo._id;
+        // http://mongoosejs.com/docs/api.html#model_Model-save
+        todo.save(function (err) {
+            res.json(200, todo);
+        });
     })
 
-    // get all the bears (accessed at GET http://localhost:8080/api/queries)
-    .get(function(req, res) {
-        res.json(['a', 'b']);
+    .delete('/todos', function (req, res) {
+        // http://mongoosejs.com/docs/api.html#query_Query-remove
+        Todo.remove({ completed: true }, function ( err ) {
+            res.json(200, {msg: 'OK'});
+        });
+    })
+
+    .get('/todos/:id', function (req, res) {
+        // http://mongoosejs.com/docs/api.html#model_Model.findById
+        Todo.findById( req.params.id, function ( err, todo ) {
+            res.json(200, todo);
+        });
+    })
+
+    .put('/todos/:id', function (req, res) {
+        // http://mongoosejs.com/docs/api.html#model_Model.findById
+        Todo.findById( req.params.id, function ( err, todo ) {
+            todo.title = req.body.title;
+            todo.completed = req.body.completed;
+            // http://mongoosejs.com/docs/api.html#model_Model-save
+            todo.save( function ( err, todo ){
+                res.json(200, todo);
+            });
+        });
+    })
+
+    .delete('/todos/:id', function (req, res) {
+        // http://mongoosejs.com/docs/api.html#model_Model.findById
+        Todo.findById( req.params.id, function ( err, todo ) {
+            // http://mongoosejs.com/docs/api.html#model_Model.remove
+            todo.remove( function ( err, todo ){
+                res.json(200, {msg: 'OK'});
+            });
+        });
     });
-
-// on routes that end in /queries/:qid
-// ----------------------------------------------------
-router.route('/queries/:qid')
-
-// get the bear with that id
-    .get(function(req, res) {
-        res.json({name: 'Test'});
-    })
-
-    // update the bear with this id
-    .put(function(req, res) {
-        res.json({ message: 'Query updated!' });
-    })
-
-    // delete the bear with this id
-    .delete(function(req, res) {
-        res.json({ message: 'Successfully deleted' });
-    });
-
 
 // REGISTER OUR ROUTES -------------------------------
 app.use('/api', router);

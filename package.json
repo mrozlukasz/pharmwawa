@@ -10,13 +10,16 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "body-parser": "~1.0.1",
+    "dotenv": "^2.0.0",
     "ejs": "2.4.1",
     "express": "4.13.3",
-    "body-parser": "~1.0.1"
+    "mongoose": "~4.0.6",
+    "morgan": "~1.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "git@github.com:mrozlukasz/pharmwawa.git"
   },
   "keywords": [
     "node",
