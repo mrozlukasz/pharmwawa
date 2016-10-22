@@ -14,12 +14,6 @@
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
 
-  <!-- Your send button code -->
-  <div class="fb-send" 
-    data-href="https://pharmwawa.herokuapp.com/"
-    data-layout="button_count">
-  </div>
-
   <% include ../partials/nav.ejs %>
 
 <div class="jumbotron text-center">
@@ -29,7 +23,12 @@
     </a>
     <h1>PharmWawa</h1>
     <p>Rozwiąż swój problem dostępności leków.</p>
-    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-nodejs"><span class="glyphicon glyphicon-flash"></span> Zacznij używać PharmWawa</a>
+    <!-- <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-nodejs"><span class="glyphicon glyphicon-flash"></span> Zacznij używać PharmWawa</a> -->
+    <!-- Your send button code -->
+    <div class="fb-send btn-lg" 
+      data-href="https://pharmwawa.herokuapp.com/"
+      data-layout="button_count">
+    </div>
     <a type="button" class="btn btn-lg btn-primary" href="https://github.com/mrozlukasz/pharmwawa"><span class="glyphicon glyphicon-download"></span> Nasz GitHub</a>
   </div>
 </div>
