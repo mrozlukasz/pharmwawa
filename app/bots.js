@@ -53,7 +53,7 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                         text: text || "W czym Ci mogę pomóć? Wybierz opcję",
                         buttons:[{
                             type: "postback",
-                            title: "Chciałbyś kupić",
+                            title: "Chciałbym kupić",
                             payload: "BUY"
                         }, {
                             type: "postback",
