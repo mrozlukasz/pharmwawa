@@ -130,7 +130,7 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
             } else {
                 console.error("Unable to send message.");
                 // console.error(response);
-                console.error(error);
+                // console.error(error);
             }
         });
     }
@@ -185,10 +185,6 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
 
                 case 'generic':
                     sendGenericMessage(senderID);
-                    break;
-
-                case 'receipt':
-                    // sendReceiptMessage(senderID);
                     break;
 
                 default:
