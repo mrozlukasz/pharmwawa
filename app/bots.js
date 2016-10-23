@@ -1,7 +1,7 @@
 /**
  * Created by lukaszmroz on 23.10.2016.
  */
-module.exports = function(router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
+module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
 
     function receivedAuthentication(event) {
         var senderID = event.sender.id;

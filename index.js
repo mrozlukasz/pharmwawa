@@ -1,6 +1,7 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     morgan     = require('morgan'),
+    request = require('request'),
     bodyParser = require('body-parser');
 
 mongoose.connect(process.env.MONGODB_URI, function (error) {
@@ -20,7 +21,7 @@ var models = require('./app/models.js')(mongoose);
 
 // create our routers
 var apiRouter = require('./app/api.js')(express.Router(), models.Item, models.Pharmacy),
-    botsRouter = require('./app/bots.js')(express.Router(), process.env.TOKEN || 'token', process.env.VERIFY_TOKEN || 'verify');
+    botsRouter = require('./app/bots.js')(request, express.Router(), process.env.TOKEN || 'token', process.env.VERIFY_TOKEN || 'verify');
 
 
 // // REGISTER OUR ROUTES -------------------------------
