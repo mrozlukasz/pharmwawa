@@ -6,6 +6,26 @@
 
 <body>
 <div id="fb-root"></div>
+<script>
+    $(document).ready(function(){
+        $('#characterLeft').text('Pozostało 140 znaków');
+        $('#message').keydown(function () {
+            var max = 140;
+            var len = $(this).val().length;
+            if (len >= max) {
+                $('#characterLeft').text('Przekroczyłeś limit');
+                $('#characterLeft').addClass('red');
+                $('#btnSubmit').addClass('disabled');
+            }
+            else {
+                var ch = max - len;
+                $('#characterLeft').text('Pozostało ' + ch + ' znaków.');
+                $('#btnSubmit').removeClass('disabled');
+                $('#characterLeft').removeClass('red');
+            }
+        });
+    });
+</script>
   <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
@@ -80,20 +100,47 @@
     <div class="col-sm-6">
       <div class="wrapper1">
             <span class="group1">
-                <h4><i class="fa fa-user" style="color: indianred"></i> Mam lek, którego ktoś szuka</h4>
+                <h4><i class="fa fa-user" style="color: indianred"></i> Potrzebuję informacji</h4>
             </span>
       </div>
       <div class="well">
         <ol>
-          <li><p><span>Poinformuj Anetkę, że masz nadwyżkę leków</span></p></li>
-          <li><p><span>Anetka sprawdzi, czy tego leku ktoś szukał</span></p></li>
-          <li><p><span>Anetka poinformuje o leku zainteresowane osoby.</span></p></li>
+          <li><p><span>Anetka pomoże Ci odnaleźć najbliższe apteki.</span></p></li>
+          <li><p><span>Anetka pomoże Ci gdy coś Ciebie boli.</span></p></li>
+          <li><p><span>Anetka znajdzie dla Ciebie lek w najlepszej cenie.</span></p></li>
         </ol>
       </div>
     </div>
   </div>
 </div>
 
+<div class="container">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="form-area">
+            <form role="form">
+                <br style="clear:both">
+                <h3 style="margin-bottom: 25px; text-align: center;">Jesteś zainteresowany współpracą? Napisz do nas</h3>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Nazwa" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Temat" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" type="textarea" id="message" placeholder="Treść" maxlength="140" rows="7"></textarea>
+                    <span class="help-block"><p id="characterLeft" class="help-block ">Przekroczyłeś limit znaków</p></span>
+                </div>
+                <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container"><p></p>
+</div>
 <div class="container">
   <div class="alert alert-info text-center" role="alert">
     <p>Projekt stworzony podczas Hackathonu <a href="http://www.wawcode.pl/">WAWCODE</a>. Jeśli potrzebujesz jakiegoś leku, bądź jeśli masz lek, którego potrzebują ludzie w Twojej okolicy, to jesteś w dobrym miejscu. Ułatwimy Ci to zadanie tak bardzo, że będziesz się turlał z radości po dworcu centralnym.</p>
