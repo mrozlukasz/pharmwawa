@@ -40,7 +40,7 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
         callSendAPI(messageData);
     }
 
-    function sendButtonMessage(recipientId) {
+    function sendButtonMessage(recipientId, text) {
         var messageData = {
             recipient: {
                 id: recipientId
@@ -50,7 +50,7 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                     type: "template",
                     payload: {
                         template_type: "button",
-                        text: "W czym Ci mogę pomóć? Wybierz opcję",
+                        text: text || "W czym Ci mogę pomóć? Wybierz opcję",
                         buttons:[{
                             type: "postback",
                             title: "Chciałbyś sprzedać",
@@ -263,10 +263,10 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                             sendTextMessage(senderID, 'A ty niedobry! https://www.youtube.com/watch?v=iSHG_B4GhFg');
                         } else {
 
-                            if (s.contains('gdzie ku')) {
+                            if (s.contains('gdzie')) {
                                 sendPharmacies(senderID);
                             }  else {
-                                sendButtonMessage(senderID, "");
+                                sendButtonMessage(senderID, "Nie rozumiem, spróbuj innych opcji.");
                             }
                         }
                     } else {
