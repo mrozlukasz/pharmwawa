@@ -310,7 +310,7 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                                 sendMedicine(senderID);
                             } else if (s.contains('gdzie')) {
                                 sendPharmacies(senderID);
-                            }  if (s.contains('insul') ) {
+                            } else if (s.contains('insul') ) {
                                 sendTextMessage(senderID, 'Przyjęłam zgłoszenie, gdy znajdę dla Ciebie insulinę, powiadomię Ciebie o tym.');
                             } else {
                                 sendButtonMessage(senderID, "Nie rozumiem, spróbuj innych opcji.");
