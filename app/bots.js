@@ -54,11 +54,11 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                         buttons:[{
                             type: "postback",
                             title: "Chciałbyś sprzedać",
-                            payload: "{operation: SELL}"
+                            payload: "SELL"
                         }, {
                             type: "postback",
                             title: "Chciałbyś kupić",
-                            payload: "{operation: BUY}"
+                            payload: "BUY"
                         }]
                     }
                 }
@@ -241,7 +241,7 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                             || s.contains('lsd')) {
                             sendTextMessage(senderID, 'A ty niedobry! https://www.youtube.com/watch?v=iSHG_B4GhFg');
                         } else {
-                            sendTextMessage(senderID, "Nie rozumiem, spróbuj jeszcze raz.");
+                            sendButtonMessage(senderID);
                         }
                     } else {
                         sendTextMessage(senderID, "Nie rozumiem, spróbuj jeszcze raz.");
