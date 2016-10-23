@@ -48,19 +48,15 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                     type: "template",
                     payload: {
                         template_type: "button",
-                        text: "This is test text",
+                        text: "W czym Ci mogę pomóć? Wybierz opcję",
                         buttons:[{
-                            type: "web_url",
-                            url: "https://www.oculus.com/en-us/rift/",
-                            title: "Open Web URL"
+                            type: "postback",
+                            title: "Chciałbyś sprzedać",
+                            payload: "{operation: SELL}"
                         }, {
                             type: "postback",
-                            title: "Trigger Postback",
-                            payload: "DEVELOPED_DEFINED_PAYLOAD"
-                        }, {
-                            type: "phone_number",
-                            title: "Call Phone Number",
-                            payload: "+16505551234"
+                            title: "Chciałbyś kupić",
+                            payload: "{operation: BUY}"
                         }]
                     }
                 }
@@ -215,9 +211,18 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
         console.log("Received postback for user %d and page %d with payload '%s' " +
             "at %d", senderID, recipientID, payload, timeOfPostback);
 
-        // When a postback is called, we'll send a message back to the sender to
-        // let them know it was successful
-        sendTextMessage(senderID, "Postback called");
+        if (_.isNullOrUndefined(payload)) {
+            // When a postback is called, we'll send a message back to the sender to
+            // let them know it was successful
+            sendTextMessage(senderID, "Postback called");
+        } else {
+            if (payload.operation  === "SELL") {
+                sendTextMessage(senderID, "Co chciałbyś sprzedać?");
+            } else if (payload.operation  === "BUY") {
+                sendTextMessage(senderID, "Co chciałbyś kupić?");
+            }
+        }
+
     }
 
 // for Facebook verification
