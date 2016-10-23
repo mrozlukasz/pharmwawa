@@ -15,15 +15,23 @@ app
     .use(bodyParser.json()) // support json encoded bodies
     .use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-// Mongoose Schema definition
-var Schema = new mongoose.Schema({
+// Mongoose ItemsSchema definition
+var ItemsSchema = new mongoose.Schema({
     id       : String,
     title    : String,
     lat: String,
     lon: String
 }),
+    Item = mongoose.model('Item', ItemsSchema),
+    PharmacySchema = new mongoose.Schema({
+        id: String,
+        title: String,
+        address: String,
+        lat: String,
+        lon: String
+    }),
+    Pharmacy = mongoose.model('Pharmacy', PharmacySchema);
 
-    Item = mongoose.model('Item', Schema);
 
 
 // create our router
@@ -91,6 +99,21 @@ router
             item.remove( function ( err, item ){
                 res.json(200, {msg: 'OK'});
             });
+        });
+    });
+
+
+router
+    .get('/pharmacies', function (req, res) {
+        // http://mongoosejs.com/docs/api.html#query_Query-find
+        Pharmacy.find( function (err, pharmacies ){
+            res.json(200, {pharmacies: pharmacies});
+        });
+    })
+    .get('/pharmacies/:id', function (req, res) {
+        // http://mongoosejs.com/docs/api.html#model_Model.findById
+        Pharmacy.findById( req.params.id, function (err, item ) {
+            res.json(200, {pharmacy: item});
         });
     });
 
