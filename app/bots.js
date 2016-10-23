@@ -228,7 +228,23 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                     break;
 
                 default:
-                    sendTextMessage(senderID, messageText);
+                    if (messageText != null) {
+                        var s = messageText.toLocaleLowerCase();
+                        if (s.contains('narkotyki')
+                            || s.contains('hasz')
+                            || s.contains('mar')
+                            || s.contains('uana')
+                            || s.contains('koka')
+                            || s.contains('her')
+                            || s.contains('kok')
+                            || s.contains('lsd')) {
+                            sendTextMessage(senderID, 'A ty niedobry! https://www.youtube.com/watch?v=iSHG_B4GhFg');
+                        } else {
+                            sendTextMessage(senderID, "Nie rozumiem, spróbuj jeszcze raz.");
+                        }
+                    } else {
+                        sendTextMessage(senderID, "Nie rozumiem, spróbuj jeszcze raz.");
+                    }
             }
         } else if (messageAttachments) {
             sendTextMessage(senderID, "Message with attachment received");
