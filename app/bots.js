@@ -53,16 +53,64 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                         text: text || "W czym Ci mogę pomóć? Wybierz opcję",
                         buttons:[{
                             type: "postback",
-                            title: "Chciałbyś sprzedać",
-                            payload: "SELL"
-                        }, {
-                            type: "postback",
                             title: "Chciałbyś kupić",
                             payload: "BUY"
                         }, {
                             type: "postback",
                             title: "Szukam apteki",
                             payload: "PHARMACY"
+                        }]
+                    }
+                }
+            }
+        };
+
+        callSendAPI(messageData);
+    }
+
+    function sendMedicine(recipientId) {
+        var messageData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                attachment: {
+                    type: "template",
+                    payload: {
+                        template_type: "generic",
+                        elements: [{
+                            title: "Voltaren",
+                            subtitle: "Maść przeciwbólowa",
+                            item_url: "http://www.voltaren.pl/",
+                            image_url: "http://www.voltaren.pl/sites/all/themes/voltaren/images/logo/voltaren-logo.png",
+                            buttons: [{
+                                type: "web_url",
+                                url: "http://www.voltaren.pl/",
+                                title: "Przeczytaj o leku"
+                            },
+                                {
+                                    type: "web_url",
+                                    url: "https://www.google.pl/maps/dir/52.254699,21.0436229/Ziko+Apteka,+Targowa,+Warszawa/@52.2530458,21.0362861,16z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x471ecc4721f12aff:0x4695799f1325b4e7!2m2!1d21.0365189!2d52.252655",
+                                    title: "20 zł w najbliższej aptece"
+                                }
+                            ]
+                        }, {
+                            title: "Ibuprom MAX",
+                            subtitle: "Tabletki powlekane",
+                            item_url: "https://www.ibuprom.pl/ibuprom_max.html",
+                            image_url: "https://www.ibuprom.pl/img/new/ibuprom_max.png",
+                            buttons: [{
+                                type: "web_url",
+                                url: "https://www.ibuprom.pl/ibuprom_max.html",
+                                title: "Przeczytaj o leku"
+                            },
+                                {
+                                    type: "web_url",
+                                    url: "https://www.google.pl/maps/dir/52.254699,21.0436229/Przy+Wile%C5%84skiej.+Apteka,+Wile%C5%84ska+9,+03-001+Warszawa/@52.2541613,21.0350818,16z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x471ecc3f414bc595:0x4e9d9d28e8bf3966!2m2!1d21.0357!2d52.256389",
+                                    title: "15 zł w najbliższej aptece."
+                                }
+
+                            ]
                         }]
                     }
                 }
@@ -258,10 +306,13 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                             || s.contains('lsd')) {
                             sendTextMessage(senderID, 'A ty niedobry! https://www.youtube.com/watch?v=iSHG_B4GhFg');
                         } else {
-
-                            if (s.contains('gdzie')) {
+                            if (s.contains('boli')) {
+                                sendMedicine(senderID);
+                            } else if (s.contains('gdzie')) {
                                 sendPharmacies(senderID);
-                            }  else {
+                            }  if (s.contains('insul') ) {
+                                sendTextMessage(senderID, 'Przyjęłam zgłoszenie, gdy znajdę dla Ciebie insulinę, powiadomię Ciebie o tym.');
+                            } else {
                                 sendButtonMessage(senderID, "Nie rozumiem, spróbuj innych opcji.");
                             }
                         }
