@@ -306,7 +306,11 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                             || s.contains('lsd')) {
                             sendTextMessage(senderID, 'A ty niedobry! https://www.youtube.com/watch?v=iSHG_B4GhFg');
                         } else {
-                            if (s.contains('boli')) {
+                            if (s.contains('hej')
+                                || s.contains('cześć')
+                                || s.contains('witam') ) {
+                                sendButtonMessage(senderID, "Witaj! W czym Ci mogę pomóć? Wybierz opcję");
+                            } else if (s.contains('boli')) {
                                 sendMedicine(senderID);
                             } else if (s.contains('gdzie')) {
                                 sendPharmacies(senderID);
