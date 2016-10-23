@@ -67,6 +67,45 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
         callSendAPI(messageData);
     }
 
+    function sendPharmacies(recipientId) {
+        var messageData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                attachment: {
+                    type: "template",
+                    payload: {
+                        template_type: "generic",
+                        elements: [{
+                            title: "Ziko Apteka",
+                            subtitle: "Targowa 39, 03-729 Warszawa",
+                            item_url: "https://goo.gl/maps/5phMpL6KRMt",
+                            image_url: "https://lh3.googleusercontent.com/-231glKPCWuY/VgKvzi7tiHI/AAAAAAAAAAw/q57wqYerKQYjmQESO72U1jGGKHted2wRQ/s408-k-no/",
+                            buttons: [{
+                                type: "web_url",
+                                url: "https://goo.gl/maps/5phMpL6KRMt",
+                                title: "Otwórz w Mapach Google"
+                            }]
+                        }, {
+                            title: "Apteka Przy Wileńskiej",
+                            subtitle: "Wileńska 9, 03-001 Warszawa",
+                            item_url: "https://goo.gl/maps/RN13omtnA4u",
+                            image_url: "https://geo1.ggpht.com/cbk?panoid=ONUmYhFtpKUTsZaBrhSIcQ&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=256&yaw=322.52&pitch=0&thumbfov=100",
+                            buttons: [{
+                                type: "web_url",
+                                url: "https://goo.gl/maps/RN13omtnA4u",
+                                title: "Otwórz w Mapach Google"
+                            }]
+                        }]
+                    }
+                }
+            }
+        };
+
+        callSendAPI(messageData);
+    }
+
     function sendGenericMessage(recipientId) {
         var messageData = {
             recipient: {
@@ -209,10 +248,14 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
             "at %d", senderID, recipientID, payload, timeOfPostback);
 
         if (payload) {
-            if (payload == '{operation: SELL}') {
+            if (payload == 'SELL') {
                 sendTextMessage(senderID, "Co chciałbyś sprzedać?");
-            } else if (payload == '{operation: BUY}') {
+            } else if (payload == 'BUY') {
                 sendTextMessage(senderID, "Co chciałbyś kupić?");
+            } else if (payload == 'HELP') {
+                sendButtonMessage(senderID);
+            } else if (payload == 'PHARMACY') {
+                sendPharmacies(senderID);
             }
 
         } else {
