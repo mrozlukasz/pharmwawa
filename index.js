@@ -20,7 +20,7 @@ var models = require('./app/models.js')(mongoose);
 
 // create our routers
 var apiRouter = require('./app/api.js')(express.Router(), models.Item, models.Pharmacy),
-    botsRouter = require('./app/bots.js')(express.Router());
+    botsRouter = require('./app/bots.js')(express.Router(), process.env.TOKEN || 'test');
 
 
 // // REGISTER OUR ROUTES -------------------------------
