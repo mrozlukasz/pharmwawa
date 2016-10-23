@@ -1,6 +1,8 @@
 /**
  * Created by lukaszmroz on 23.10.2016.
  */
+var _ = require('lodash');
+
 module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
 
     function receivedAuthentication(event) {
