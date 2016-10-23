@@ -3,6 +3,7 @@
  */
 
 module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
+    if (typeof String.prototype.contains === 'undefined') { String.prototype.contains = function(it) { return this.indexOf(it) != -1; }; }
 
     function receivedAuthentication(event) {
         var senderID = event.sender.id;
