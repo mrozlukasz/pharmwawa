@@ -15,9 +15,9 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
         // plugin.
         var passThroughParam = event.optin.ref;
 
-        console.log("Received authentication for user %d and page %d with pass " +
-            "through param '%s' at %d", senderID, recipientID, passThroughParam,
-            timeOfAuth);
+        // console.log("Received authentication for user %d and page %d with pass " +
+        //     "through param '%s' at %d", senderID, recipientID, passThroughParam,
+        //     timeOfAuth);
 
         // When an authentication is received, we'll send a message back to the sender
         // to let them know it was successful.
@@ -32,6 +32,38 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
             },
             message: {
                 text: messageText
+            }
+        };
+
+        callSendAPI(messageData);
+    }
+
+    function sendButtonMessage(recipientId) {
+        var messageData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                attachment: {
+                    type: "template",
+                    payload: {
+                        template_type: "button",
+                        text: "This is test text",
+                        buttons:[{
+                            type: "web_url",
+                            url: "https://www.oculus.com/en-us/rift/",
+                            title: "Open Web URL"
+                        }, {
+                            type: "postback",
+                            title: "Trigger Postback",
+                            payload: "DEVELOPED_DEFINED_PAYLOAD"
+                        }, {
+                            type: "phone_number",
+                            title: "Call Phone Number",
+                            payload: "+16505551234"
+                        }]
+                    }
+                }
             }
         };
 
@@ -101,7 +133,7 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                     messageId, recipientId);
             } else {
                 console.error("Unable to send message.");
-                console.error(response);
+                // console.error(response);
                 console.error(error);
             }
         });
@@ -152,7 +184,7 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                     break;
 
                 case 'button':
-                    // sendButtonMessage(senderID);
+                    sendButtonMessage(senderID);
                     break;
 
                 case 'generic':
@@ -193,10 +225,10 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
         .get('/', function(req, res) {
             if (req.query['hub.mode'] === 'subscribe' &&
                 req.query['hub.verify_token'] === VERIFY_TOKEN) {
-                console.log("Validating webhook");
+                // console.log("Validating webhook");
                 res.status(200).send(req.query['hub.challenge']);
             } else {
-                console.error("Failed validation. Make sure the validation tokens match.");
+                // console.error("Failed validation. Make sure the validation tokens match.");
                 res.sendStatus(403);
             }
         })
