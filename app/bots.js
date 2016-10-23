@@ -209,9 +209,9 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
             "at %d", senderID, recipientID, payload, timeOfPostback);
 
         if (payload) {
-            if (payload.operation  == "SELL") {
+            if (payload == '{operation: SELL}') {
                 sendTextMessage(senderID, "Co chciałbyś sprzedać?");
-            } else if (payload.operation  == "BUY") {
+            } else if (payload == '{operation: BUY}') {
                 sendTextMessage(senderID, "Co chciałbyś kupić?");
             }
 
