@@ -1,7 +1,6 @@
 /**
  * Created by lukaszmroz on 23.10.2016.
  */
-var _ = require('lodash');
 
 module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
 
@@ -209,16 +208,17 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
         console.log("Received postback for user %d and page %d with payload '%s' " +
             "at %d", senderID, recipientID, payload, timeOfPostback);
 
-        if (_.isNullOrUndefined(payload)) {
-            // When a postback is called, we'll send a message back to the sender to
-            // let them know it was successful
-            sendTextMessage(senderID, "Postback called");
-        } else {
+        if (payload) {
             if (payload.operation  === "SELL") {
                 sendTextMessage(senderID, "Co chciałbyś sprzedać?");
             } else if (payload.operation  === "BUY") {
                 sendTextMessage(senderID, "Co chciałbyś kupić?");
             }
+
+        } else {
+            // When a postback is called, we'll send a message back to the sender to
+            // let them know it was successful
+            sendTextMessage(senderID, "Postback called");
         }
 
     }
