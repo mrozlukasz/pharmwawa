@@ -59,6 +59,14 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                             type: "postback",
                             title: "Chciałbyś kupić",
                             payload: "BUY"
+                        }, {
+                            type: "postback",
+                            title: "Szukam apteki",
+                            payload: "PHARMACY"
+                        }, {
+                            type: "web_url",
+                            url: "http://pharmwawa.herokuapp.com/",
+                            title: "Kim jesteś piękna?"
                         }]
                     }
                 }
@@ -255,10 +263,10 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                             sendTextMessage(senderID, 'A ty niedobry! https://www.youtube.com/watch?v=iSHG_B4GhFg');
                         } else {
 
-                            if (s.contains('gdzie kupię')) {
+                            if (s.contains('gdzie ku')) {
                                 sendPharmacies(senderID);
                             }  else {
-                                sendButtonMessage(senderID);
+                                sendButtonMessage(senderID, "");
                             }
                         }
                     } else {
