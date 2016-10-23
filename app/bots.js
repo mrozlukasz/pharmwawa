@@ -87,7 +87,13 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                                 type: "web_url",
                                 url: "https://goo.gl/maps/5phMpL6KRMt",
                                 title: "Otwórz w Mapach Google"
-                            }]
+                            },
+                            {
+                                type: "web_url",
+                                url: "https://www.google.pl/maps/dir/52.254699,21.0436229/Ziko+Apteka,+Targowa,+Warszawa/@52.2530458,21.0362861,16z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x471ecc4721f12aff:0x4695799f1325b4e7!2m2!1d21.0365189!2d52.252655",
+                                title: "Znajdź drogę"
+                            }
+                            ]
                         }, {
                             title: "Apteka Przy Wileńskiej",
                             subtitle: "Wileńska 9, 03-001 Warszawa",
@@ -97,7 +103,14 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                                 type: "web_url",
                                 url: "https://goo.gl/maps/RN13omtnA4u",
                                 title: "Otwórz w Mapach Google"
-                            }]
+                            },
+                                {
+                                type: "web_url",
+                                url: "https://www.google.pl/maps/dir/52.254699,21.0436229/Przy+Wile%C5%84skiej.+Apteka,+Wile%C5%84ska+9,+03-001+Warszawa/@52.2541613,21.0350818,16z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x471ecc3f414bc595:0x4e9d9d28e8bf3966!2m2!1d21.0357!2d52.256389",
+                                title: "Znajdź drogę"
+                            }
+
+                            ]
                         }]
                     }
                 }
@@ -241,7 +254,12 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                             || s.contains('lsd')) {
                             sendTextMessage(senderID, 'A ty niedobry! https://www.youtube.com/watch?v=iSHG_B4GhFg');
                         } else {
-                            sendButtonMessage(senderID);
+
+                            if (s.contains('gdzie kupię')) {
+                                sendPharmacies(senderID);
+                            }  else {
+                                sendButtonMessage(senderID);
+                            }
                         }
                     } else {
                         sendTextMessage(senderID, "Nie rozumiem, spróbuj jeszcze raz.");
