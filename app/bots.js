@@ -63,10 +63,6 @@ module.exports = function(request, router, PAGE_ACCESS_TOKEN, VERIFY_TOKEN) {
                             type: "postback",
                             title: "Szukam apteki",
                             payload: "PHARMACY"
-                        }, {
-                            type: "web_url",
-                            url: "http://pharmwawa.herokuapp.com/",
-                            title: "Kim jesteś piękna?"
                         }]
                     }
                 }
